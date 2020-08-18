@@ -12,7 +12,7 @@ import com.monkeylearn.MonkeyLearnException;
 import com.monkeylearn.MonkeyLearnResponse;
 
 public class MonkeyLearnClient {
-	//make sure change it to your API key.
+
 	private static final String API_KEY = "a4ab9d87236f52e7e4bf9d185e52f050d9507f4a"; 
 
 	public static void main(String[] args) {
@@ -33,17 +33,15 @@ public class MonkeyLearnClient {
 			return new ArrayList<>();
 		}
 
-		// Use the API key from your account
 		MonkeyLearn ml = new MonkeyLearn(API_KEY);
 
-		// Use the keyword extractor
 		ExtraParam[] extraParams = { new ExtraParam("max_keywords", "3") };
 		MonkeyLearnResponse response;
 		try {
-			response = ml.extractors.extract("ex_YCya9nrn", text, extraParams);// change to your model id
+			response = ml.extractors.extract("ex_YCya9nrn", text, extraParams);
 			JSONArray resultArray = response.arrayResult;
 			return getKeywords(resultArray);
-		} catch (MonkeyLearnException e) {// it’s likely to have an exception
+		} catch (MonkeyLearnException e) {
 			e.printStackTrace();
 		}
 		return new ArrayList<>();
@@ -51,13 +49,12 @@ public class MonkeyLearnClient {
 
 	private static List<List<String>> getKeywords(JSONArray mlResultArray) {
 		List<List<String>> topKeywords = new ArrayList<>();
-		// Iterate the result array and convert it to our format.
+
 		for (int i = 0; i < mlResultArray.size(); ++i) {
 			List<String> keywords = new ArrayList<>();
 			JSONArray keywordsArray = (JSONArray) mlResultArray.get(i);
 			for (int j = 0; j < keywordsArray.size(); ++j) {
 				JSONObject keywordObject = (JSONObject) keywordsArray.get(j);
-				// We just need the keyword, excluding other fields.
 				String keyword = (String) keywordObject.get("keyword");
 				keywords.add(keyword);
 

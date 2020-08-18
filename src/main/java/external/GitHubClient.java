@@ -76,8 +76,7 @@ public class GitHubClient {
 		List<String> descriptionList = new ArrayList<>();
 		
 		for (int i = 0; i < array.length(); i++) {
-			// We need to extract keywords from description since GitHub API
-			// doesn't return keywords.
+
 			String description = getStringFieldOrEmpty(array.getJSONObject(i), "description");
 			if (description.equals("") || description.equals("\n")) {
 				descriptionList.add(getStringFieldOrEmpty(array.getJSONObject(i), "title"));
@@ -86,8 +85,6 @@ public class GitHubClient {
 			}	
 		}
 
-		// We need to get keywords from multiple text in one request since
-		// MonkeyLearnAPI has limitations on request per minute.
 		List<List<String>> keywords = MonkeyLearnClient
 				.extractKeywords(descriptionList.toArray(new String[descriptionList.size()]));
 		

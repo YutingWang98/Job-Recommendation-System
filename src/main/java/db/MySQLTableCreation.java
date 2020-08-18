@@ -5,12 +5,11 @@ import java.sql.Statement;
 import java.sql.Connection;
 
 public class MySQLTableCreation {
-	// Run this as Java application to reset the database.
+
 	public static void main(String[] args) {
 		try {
-			// Step 1 Connect to MySQL.创建连接
+
 			System.out.println("Connecting to " + MySQLDBUtil.URL);
-			// 14，15是关键
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			Connection conn = DriverManager.getConnection(MySQLDBUtil.URL);
 
@@ -18,14 +17,12 @@ public class MySQLTableCreation {
 				return;
 			}
 
-			// Step 2 Drop tables in case they exist. //注意顺序，先删除有foreign
-			// key指向别人的table，再删除被指向的
 			Statement statement = conn.createStatement();
 			String sql = "DROP TABLE IF EXISTS keywords";
-			statement.executeUpdate(sql); // 删除操作，executeUpdate()；如果是读操作，用executeQuery（）
+			statement.executeUpdate(sql); 
 
 			sql = "DROP TABLE IF EXISTS history";
-			statement.executeUpdate(sql); // 可以重复利用
+			statement.executeUpdate(sql); 
 
 			sql = "DROP TABLE IF EXISTS items";
 			statement.executeUpdate(sql);
@@ -33,11 +30,10 @@ public class MySQLTableCreation {
 			sql = "DROP TABLE IF EXISTS users";
 			statement.executeUpdate(sql);
 
-			// Step 3 Create new tables
-			sql = "CREATE TABLE items (" + "item_id VARCHAR(255) NOT NULL," // string 是VARCHAR(255)，最多255个字符组成的string
+			sql = "CREATE TABLE items (" + "item_id VARCHAR(255) NOT NULL," 
 					+ "name VARCHAR(255)," + "address VARCHAR(255)," + "image_url VARCHAR(255)," + "url VARCHAR(255),"
 					+ "PRIMARY KEY (item_id)" + ")";
-			statement.executeUpdate(sql); // 创建
+			statement.executeUpdate(sql); 
 
 			sql = "CREATE TABLE users (" + "user_id VARCHAR(255) NOT NULL," + "password VARCHAR(255) NOT NULL,"
 					+ "first_name VARCHAR(255)," + "last_name VARCHAR(255)," + "PRIMARY KEY (user_id)" + ")";

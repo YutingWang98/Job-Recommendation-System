@@ -27,7 +27,6 @@ public class ItemsHistory extends HttpServlet {
 	 */
 	public ItemsHistory() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -72,8 +71,6 @@ public class ItemsHistory extends HttpServlet {
 		}
 
 		MySQLConnection connection = new MySQLConnection();
-		// 格式都是jason，但是数据类型不一样
-		// 原始的jason是string，但不好用，转换成了hashmap的jason object，方便找数据
 		JSONObject input = new JSONObject(IOUtils.toString(request.getReader()));
 		String userId = input.getString("user_id");
 		Item item = RpcHelper.parseFavoriteItem(input.getJSONObject("favorite"));
